@@ -12,6 +12,29 @@ python3 -m venv .venv
 .venv/bin/python -m pip install --upgrade pip
 .venv/bin/pip install -r requirements.txt
 
+# Optional Ask Dino API keys.
+CONFIG_DIR="$HOME/.config/linux-desktop-pet"
+mkdir -p "$CONFIG_DIR"
+chmod 700 "$CONFIG_DIR"
+
+echo
+echo "Ask Dino setup (optional). Press Enter to skip."
+read -r -s -p "Groq API key: " GROQ_KEY
+echo
+if [ -n "$GROQ_KEY" ]; then
+    printf '%s\n' "$GROQ_KEY" > "$CONFIG_DIR/groq.key"
+    chmod 600 "$CONFIG_DIR/groq.key"
+    echo "✅ Groq key saved locally."
+fi
+
+read -r -s -p "Tavily API key: " TAVILY_KEY
+echo
+if [ -n "$TAVILY_KEY" ]; then
+    printf '%s\n' "$TAVILY_KEY" > "$CONFIG_DIR/tavily.key"
+    chmod 600 "$CONFIG_DIR/tavily.key"
+    echo "✅ Tavily key saved locally."
+fi
+
 mkdir -p "$HOME/.local/share/applications"
 
 cat > "$HOME/.local/share/applications/linux-desktop-pet.desktop" <<DESKTOP
